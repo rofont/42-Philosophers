@@ -6,7 +6,7 @@
 #    By: romain <romain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 10:04:59 by rofontai          #+#    #+#              #
-#    Updated: 2023/07/20 21:33:47 by romain           ###   ########.fr        #
+#    Updated: 2023/07/25 21:09:03 by romain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,13 @@ export
 NAME		= philo
 
 CC			= gcc
-CFLAGS		= -g -Wall -Wextra -Werror #-fsanitize=address
+CFLAGS		= -g -Wall -Wextra -Werror -pthread #-fsanitize=address
 
 DIR_SRC		= ./src
 SRC			= main.c \
+				parsing.c \
+				utils.c \
+				a_supp.c \
 
 DIR_OBJ		= ./obj
 OBJ			= $(addprefix $(DIR_OBJ)/, $(SRC:.c=.o))
@@ -56,7 +59,7 @@ $(DIR_OBJ)/%.o	:	$(DIR_SRC)/%.c $(HEADER)
 	@$(CC) $(CFLAGS) -c $< -o $@
 	@echo "$G Compilation : $Z $(notdir $<)"$W
 
-${NAME}: $(DIR_OBJ) $(OBJ)
+$(NAME): $(DIR_OBJ) $(OBJ)
 	@$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
 $(DIR_OBJ)	:
@@ -72,4 +75,10 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+leaks:
+	valgrind --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=supp.txt ./philo
+
+leak:
+	leaks --atExit --list -- ./philo
+
+.PHONY: all clean fclean re leaks leak
