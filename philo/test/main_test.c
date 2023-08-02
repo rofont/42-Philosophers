@@ -3,33 +3,27 @@
 #include <pthread.h>
 #include <unistd.h>
 
-
-void *func1(void *arg)
+void	*routine()
 {
-	for (int i = 0; i < 10; i++)
-		fprintf(stderr, "\33[91m thread 1: %d\033[0m\n", i);
-	pthread_exit(NULL);
+	printf("test des Threads\n");
+	usleep(3000000); //TODO correspond a 3sec
+	printf("fin des Threads\n");
+	return (NULL);
 }
 
-void *func2(void *arg)
-{
-	for (int i = 0; i < 10; i++)
-		fprintf(stderr, "\33[95m thread 2: %d\033[0m\n", i);
-	pthread_exit(NULL);
-}
-
-
-
-
-int main (void)
+int main (int ac, char **av)
 {
 	pthread_t t1;
 	pthread_t t2;
 
-	pthread_create(&t1, NULL, func1, NULL);
-	pthread_create(&t2, NULL, func2, NULL);
-	pthread_join(t1, NULL);
-	pthread_join(t2, NULL);
 
-	return(0);
+	if (pthread_create(&t1, NULL, &routine, NULL) != 0)
+		return (1);
+	if (pthread_create(&t2, NULL, &routine, NULL) != 0)
+		return (2);
+	if (pthread_join(t1, NULL) != 0)
+		return (3);
+	if (pthread_join(t2, NULL) != 0)
+		return (4);
+	return (0);
 }

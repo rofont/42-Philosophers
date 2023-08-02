@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/01 16:02:25 by romain            #+#    #+#             */
-/*   Updated: 2023/08/01 20:32:15 by romain           ###   ########.fr       */
+/*   Created: 2023/08/01 10:22:29 by romain            #+#    #+#             */
+/*   Updated: 2023/08/01 20:48:17 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-time_t	f_get_time(void)
+int	f_init_meta(t_meta *ms, int ac, char **av)
 {
-	static struct timeval	start = {-1, -1};
-	struct timeval			now;
-
-	if (start.tv_sec == -1 && start.tv_usec == -1)
-		gettimeofday(&start, NULL);
-	gettimeofday(&now, NULL);
-	return ((now.tv_sec * 1000 + now.tv_usec)
-		- (start.tv_sec * 1000 + start.tv_usec));
+	ms->nb_philo = f_atol(av[1]);
+	ms->tt_eat = f_atol(av[2]);
+	ms->tt_die = f_atol(av[3]);
+	ms->tt_sleep = f_atol(av[4]);
+	if (ms->nb_philo < 1 || ms->nb_philo > 200 ||
+		ms->tt_eat < 0 || ms->tt_die < 0 || ms->tt_sleep < 0)
+		return (-1);
+	if (ac == 6)
+		ms->nb_meals = f_atol(av[5]);
+	else
+		ms->nb_meals = INT_MAX;
+	return (0);
 }
-

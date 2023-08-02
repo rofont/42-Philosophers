@@ -6,7 +6,7 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 10:04:42 by rofontai          #+#    #+#             */
-/*   Updated: 2023/07/25 21:11:53 by romain           ###   ########.fr       */
+/*   Updated: 2023/08/01 20:27:36 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,15 @@
 
 int	main(int ac, char **av)
 {
-	t_meta	*ms;
+	t_meta ms;
+	int i = 0;
+	if ((ac == 5 || ac == 6) && (f_parsing(av) != -1))
+	{
+		if (f_init_meta(&ms, ac, av) == -1)
+			return (printf("%s\n", ERROR_ARG));
 
-	f_parsing(ac, av);
-	ms = f_init_meta(av);
-	f_print_meta(ms); // TODO supprimer
+	}
+	else
+		return (printf("%s\n", ERROR_ARG));
 	return (0);
 }

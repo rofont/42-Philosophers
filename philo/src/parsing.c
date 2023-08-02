@@ -6,55 +6,53 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 09:03:18 by romain            #+#    #+#             */
-/*   Updated: 2023/07/25 21:13:10 by romain           ###   ########.fr       */
+/*   Updated: 2023/08/01 15:26:31 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	f_check_digit(char *txt)
+int	f_atol(char *str)
+{
+	long	nb;
+	int		i;
+
+	nb = 0;
+	i = 0;
+	if (!str)
+		return (-1);
+	while (str[i])
+		nb = (nb * 10) + (str[i++] - 48);
+	if (nb > INT_MAX)
+		return (-1);
+	return (nb);
+}
+
+int	f_is_digit(char *str)
 {
 	int	i;
 
-	if (!txt)
-		return (-1);
 	i = 0;
-	while (txt[i])
+	if (!str)
+		return (-1);
+	while (str[i])
 	{
-		if (!(txt[i] >= '0' && txt[i] <= '9'))
+		if (!(str[i] >= '0' && str[i] <= '9'))
 			return (-1);
 		i++;
 	}
 	return (0);
 }
 
-int	f_atoi(char *txt)
-{
-	long	nb;
-	int		i;
-
-	if (!txt)
-		return (-1);
-	i = 0;
-	nb = 0;
-	while (txt[i])
-		nb = (nb * 10) + (txt[i++] - 48);
-	if (nb > 2147483647)
-		exit(EXIT_FAILURE);
-	return (nb);
-}
-
-int	f_parsing(int ac, char **av)
+int	f_parsing(char **av)
 {
 	int	i;
 
 	i = 1;
-	if (ac < 5 || ac > 6)
-		f_all_clean(NULL, "error numbers arguments");
 	while (av[i])
 	{
-		if (f_check_digit(av[i]) == -1 || f_atoi(av[i]) <= 0)
-			f_all_clean(NULL, "error arguments");
+		if (f_is_digit(av[i]) == -1 || f_atol(av[i]) == -1)
+			return (-1);
 		i++;
 	}
 	return (0);

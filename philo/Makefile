@@ -6,7 +6,7 @@
 #    By: romain <romain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 10:04:59 by rofontai          #+#    #+#              #
-#    Updated: 2023/07/25 21:09:03 by romain           ###   ########.fr        #
+#    Updated: 2023/08/01 20:31:35 by romain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,9 @@ CFLAGS		= -g -Wall -Wextra -Werror -pthread #-fsanitize=address
 DIR_SRC		= ./src
 SRC			= main.c \
 				parsing.c \
+				init.c \
 				utils.c \
+				routine.c \
 				a_supp.c \
 
 DIR_OBJ		= ./obj
@@ -76,9 +78,12 @@ fclean: clean
 re: fclean all
 
 leaks:
-	valgrind --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=supp.txt ./philo
+	@valgrind --track-fds=yes --trace-children=yes --leak-check=full --show-leak-kinds=all --track-origins=yes --suppressions=supp.txt ./philo
 
 leak:
-	leaks --atExit --list -- ./philo
+	@leaks --atExit --list -- ./philo
 
-.PHONY: all clean fclean re leaks leak
+norminette:
+	@norminette
+
+.PHONY: all clean fclean re leaks leak norminette
