@@ -5,12 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/22 09:03:18 by romain            #+#    #+#             */
-/*   Updated: 2023/08/01 15:26:31 by romain           ###   ########.fr       */
+/*   Created: 2023/08/07 20:06:33 by romain            #+#    #+#             */
+/*   Updated: 2023/08/08 20:08:40 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+void	f_putstr_fd(char *txt, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (txt[i])
+		write(fd, &txt[i++], 1);
+	write(fd, "\n", 1);
+}
 
 int	f_atol(char *str)
 {

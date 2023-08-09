@@ -6,7 +6,7 @@
 #    By: romain <romain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 10:04:59 by rofontai          #+#    #+#              #
-#    Updated: 2023/08/01 20:31:35 by romain           ###   ########.fr        #
+#    Updated: 2023/08/08 20:53:34 by romain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,15 +26,13 @@ export
 NAME		= philo
 
 CC			= gcc
-CFLAGS		= -g -Wall -Wextra -Werror -pthread #-fsanitize=address
+CFLAGS		= -g -Wall -Wextra -Werror -pthread -fsanitize=thread
 
 DIR_SRC		= ./src
 SRC			= main.c \
 				parsing.c \
 				init.c \
-				utils.c \
 				routine.c \
-				a_supp.c \
 
 DIR_OBJ		= ./obj
 OBJ			= $(addprefix $(DIR_OBJ)/, $(SRC:.c=.o))

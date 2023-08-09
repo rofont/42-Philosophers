@@ -6,7 +6,7 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 20:46:05 by romain            #+#    #+#             */
-/*   Updated: 2023/08/04 21:24:32 by romain           ###   ########.fr       */
+/*   Updated: 2023/08/08 21:00:05 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,52 +41,36 @@
 # define THINK "is thinking"
 # define DEAD "died"
 
-typedef struct s_meta	t_meta;
-typedef struct s_philo
-{
-	int					id;
-	int					status;
-	int					nb_meal;
-	time_t				last_meal;
-	pthread_t			ph;
-	t_meta				*ms;
-
-}						t_philo;
-
 typedef struct s_meta
 {
-	time_t				nb_philo;
-	time_t				tt_die;
-	time_t				tt_eat;
-	time_t				tt_sleep;
-	int					nb_meals;
-	time_t				start;
-	t_philo				*philos;
-	pthread_mutex_t		*forks;
-	pthread_mutex_t		lock;
-}						t_meta;
+	int	nb_philos;
+	int	tt_die;
+	int	tt_eat;
+	int	tt_sleep;
+	int	nb_meals;
+}		t_meta;
+
+typedef struct s_philo
+{
+	int id;
+	pthread_t phil;
+	t_meta *ms;
+}	t_philo;
 
 // PARSING---------------------------------------------------------------------
 
-int						f_atol(char *str);
-int						f_is_digit(char *str);
-int						f_parsing(char **av);
+void	f_putstr_fd(char *txt, int fd);
+int		f_atol(char *str);
+int		f_is_digit(char *str);
+int		f_parsing(char **av);
 
 // INIT------------------------------------------------------------------------
 
-int						f_init_meta(t_meta *ms, int ac, char **av);
-int						f_init_philo(t_meta *ms);
-
-// A_SUPP----------------------------------------------------------------------
-
-void					f_print_ms(t_meta *ms);
-
-// UTILS-----------------------------------------------------------------------
-
-time_t					f_get_time(void);
+int		f_init_meta(t_meta *ms, int ac, char **av);
+int		f_get_time(void);
 
 // ROUTINE---------------------------------------------------------------------
 
-void *f_routine(void *arg);
+void *f_routine(void *data);
 
 #endif
