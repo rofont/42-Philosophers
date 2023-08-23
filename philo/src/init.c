@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 19:37:53 by romain            #+#    #+#             */
-/*   Updated: 2023/08/22 20:08:32 by romain           ###   ########.fr       */
+/*   Updated: 2023/08/23 10:01:29 by rofontai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+time_t	get_time(void)
+{
+	static struct timeval	start = {-1, -1};
+	struct timeval			now;
+
+	if (start.tv_sec == -1 && start.tv_usec == -1)
+		gettimeofday(&start, NULL);
+	gettimeofday(&now, NULL);
+	return ((now.tv_sec * 1000 - start.tv_sec * 1000) + \
+	(now.tv_usec / 1000 - start.tv_usec / 1000));
+}
 
 void f_init_data(int ac, char **av, t_data *ms)
 {
@@ -27,5 +39,18 @@ void f_init_data(int ac, char **av, t_data *ms)
 	{
 		f_putstr_fd(ERROR_ARG, STDERR_FILENO);
 		exit (EXIT_FAILURE);
+	}
+	pthread_mutex_init(&ms->lock, NULL);
+}
+
+void	f_init_philo(t_data *ms, t_philo *ph)
+{
+	int i;
+
+	i = -1;
+	while (++i < ms->nb_philo)
+	{
+		ph[i].id = i + 1;
+		ph[i].info = ms;
 	}
 }

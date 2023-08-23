@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 20:46:05 by romain            #+#    #+#             */
-/*   Updated: 2023/08/22 20:03:06 by romain           ###   ########.fr       */
+/*   Updated: 2023/08/23 11:03:35 by rofontai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 # include <limits.h>
 # include <pthread.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
-# include <stdbool.h>
 
 // COLOR-----------------------------------------------------------------------
 
@@ -36,32 +36,56 @@
 # define DEBUG 1
 # define ERROR_ARG "\n🚨 : one or more arguments are not correct\n"
 # define ERROR_NB_ARG "\n🚨 : require ./philo <nb_philo> <tt_die> <tt_eat> <tt_sleep> and/or <nb_meals>\n"
+# define FORK "has taken a fork"
+# define EAT "is eating"
+# define SLEEP "is sleeping"
+# define THINK "is thinking"
+# define DIED "died"
 
 // STRUCTURE-------------------------------------------------------------------
 
 typedef struct s_data
 {
-	int nb_philo;
-	time_t tt_die;
-	time_t tt_eat;
-	time_t tt_sleep;
-	int nb_meals;
-} t_data;
+	int		nb_philo;
+	time_t	tt_die;
+	time_t	tt_eat;
+	time_t	tt_sleep;
+	int		nb_meals;
+	pthread_mutex_t lock;
+}			t_data;
+
+typedef struct s_philo
+{
+	int		id;
+	t_data	*info;
+}	t_philo;
 
 // PARSING---------------------------------------------------------------------
 
-void	f_putstr_fd(char *txt, int fd);
-int		f_atol(char *str);
-bool	f_is_digit(char *str);
-bool	f_check(char **av);
-bool	f_parsing(int ac, char **av);
+void		f_putstr_fd(char *txt, int fd);
+int			f_atol(char *str);
+bool		f_is_digit(char *str);
+bool		f_check(char **av);
+bool		f_parsing(int ac, char **av);
 
 // INIT------------------------------------------------------------------------
 
-void f_init_data(int ac, char **av, t_data *ms);
+time_t		get_time(void);
+void		f_init_data(int ac, char **av, t_data *ms);
+void		f_init_philo(t_data *ms, t_philo *ph);
+
+// ROUTINE--------------------------------------------------------------------
+void 	*f_routine(void *arg);
+void	f_destroy(pthread_t *eater, t_data *ms);
+void	f_make_philo(pthread_t *eater, t_philo *ph, t_data *ms);
+void	f_progress(t_data *ms, t_philo *ph);
+
+// UTILS-----------------------------------------------------------------------
+
+void	f_message(char *txt, t_philo *ph, t_data *ms);
 
 // A_SUPP----------------------------------------------------------------------
 
-void	f_print_ms(t_data *ms);
+void		f_print_ms(t_data *ms);
 
 #endif

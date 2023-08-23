@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: romain <romain@student.42.fr>              +#+  +:+       +#+         #
+#    By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 10:04:59 by rofontai          #+#    #+#              #
-#    Updated: 2023/08/22 19:51:04 by romain           ###   ########.fr        #
+#    Updated: 2023/08/23 10:58:22 by rofontai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,8 @@ SRC			= main.c \
 				parsing.c \
 				init.c \
 				a_supp.c \
+				routine.c \
+				utils.c \
 
 DIR_OBJ		= ./obj
 OBJ			= $(addprefix $(DIR_OBJ)/, $(SRC:.c=.o))
