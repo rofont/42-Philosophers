@@ -6,7 +6,7 @@
 #    By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 10:04:59 by rofontai          #+#    #+#              #
-#    Updated: 2023/08/23 10:58:22 by rofontai         ###   ########.fr        #
+#    Updated: 2023/08/23 13:07:02 by rofontai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ export
 NAME		= philo
 
 CC			= gcc
-CFLAGS		= -g -Wall -Wextra -Werror -pthread -fsanitize=thread
+CFLAGS		= -g -Wall -Wextra -Werror -pthread #-fsanitize=thread
 
 DIR_SRC		= ./src
 SRC			= main.c \

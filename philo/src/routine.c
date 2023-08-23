@@ -6,7 +6,7 @@
 /*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 09:33:40 by rofontai          #+#    #+#             */
-/*   Updated: 2023/08/23 11:03:21 by rofontai         ###   ########.fr       */
+/*   Updated: 2023/08/23 13:42:01 by rofontai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,26 @@ void	*f_routine(void *arg)
 		usleep(500);
 	while (get_time() <= 1000)
 	{
+		if (get_time() > 999)
+		{
+			ph->alive = false;
+			f_message(DIED, ph, ph->info);
+			break ;
+		}
 		f_message(THINK, ph, ph->info);
 	}
 	return (arg);
 }
 
-void	f_destroy(pthread_t *eater, t_data *ms)
+void	f_destroy(pthread_t *eater,t_philo *ph, t_data *ms)
 {
 	int i;
 
 	i = -1;
 	while(++i < ms->nb_philo)
 		pthread_join(eater[i], NULL);
-	pthread_mutex_destroy(&ms->lock);
+	pthread_mutex_destroy(&ms->msg);
+	pthread_mutex_destroy(&ph->l_fork);
 }
 
 
@@ -57,5 +64,6 @@ void	f_progress(t_data *ms, t_philo *ph)
 	pthread_t eater[1000];
 
 	f_make_philo(eater, ph, ms);
-	f_destroy(eater, ms);
+	if(!f_monitor_man(ph, ms))
+		f_destroy(eater, ph, ms);
 }

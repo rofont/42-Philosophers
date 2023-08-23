@@ -6,7 +6,7 @@
 /*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 20:46:05 by romain            #+#    #+#             */
-/*   Updated: 2023/08/23 11:03:35 by rofontai         ###   ########.fr       */
+/*   Updated: 2023/08/23 13:25:43 by rofontai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,46 +46,54 @@
 
 typedef struct s_data
 {
-	int		nb_philo;
-	time_t	tt_die;
-	time_t	tt_eat;
-	time_t	tt_sleep;
-	int		nb_meals;
-	pthread_mutex_t lock;
-}			t_data;
+	int				nb_philo;
+	time_t			tt_die;
+	time_t			tt_eat;
+	time_t			tt_sleep;
+	int				nb_meals;
+	int				full;
+	pthread_mutex_t	msg;
+}					t_data;
 
 typedef struct s_philo
 {
-	int		id;
-	t_data	*info;
-}	t_philo;
+	int				id;
+	bool			alive;
+	int				meals;
+	time_t			last_meal;
+	pthread_mutex_t	l_fork;
+	pthread_mutex_t	*r_fork;
+	t_data			*info;
+}					t_philo;
 
 // PARSING---------------------------------------------------------------------
 
-void		f_putstr_fd(char *txt, int fd);
-int			f_atol(char *str);
-bool		f_is_digit(char *str);
-bool		f_check(char **av);
-bool		f_parsing(int ac, char **av);
+void				f_putstr_fd(char *txt, int fd);
+int					f_atol(char *str);
+bool				f_is_digit(char *str);
+bool				f_check(char **av);
+bool				f_parsing(int ac, char **av);
 
 // INIT------------------------------------------------------------------------
 
-time_t		get_time(void);
-void		f_init_data(int ac, char **av, t_data *ms);
-void		f_init_philo(t_data *ms, t_philo *ph);
+time_t				get_time(void);
+void				f_init_data(int ac, char **av, t_data *ms);
+void				f_init_philo(t_data *ms, t_philo *ph);
 
 // ROUTINE--------------------------------------------------------------------
-void 	*f_routine(void *arg);
-void	f_destroy(pthread_t *eater, t_data *ms);
-void	f_make_philo(pthread_t *eater, t_philo *ph, t_data *ms);
-void	f_progress(t_data *ms, t_philo *ph);
+
+void				*f_routine(void *arg);
+void				f_destroy(pthread_t *eater, t_philo *ph, t_data *ms);
+void				f_make_philo(pthread_t *eater, t_philo *ph, t_data *ms);
+void				f_progress(t_data *ms, t_philo *ph);
 
 // UTILS-----------------------------------------------------------------------
 
-void	f_message(char *txt, t_philo *ph, t_data *ms);
+void				f_message(char *txt, t_philo *ph, t_data *ms);
+bool				f_monitor_man(t_philo *ph, t_data *ms);
 
 // A_SUPP----------------------------------------------------------------------
 
-void		f_print_ms(t_data *ms);
+void				f_print_ms(t_data *ms);
 
 #endif

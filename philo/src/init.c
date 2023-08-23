@@ -6,7 +6,7 @@
 /*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 19:37:53 by romain            #+#    #+#             */
-/*   Updated: 2023/08/23 10:01:29 by rofontai         ###   ########.fr       */
+/*   Updated: 2023/08/23 13:29:26 by rofontai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void f_init_data(int ac, char **av, t_data *ms)
 		f_putstr_fd(ERROR_ARG, STDERR_FILENO);
 		exit (EXIT_FAILURE);
 	}
-	pthread_mutex_init(&ms->lock, NULL);
+	pthread_mutex_init(&ms->msg, NULL);
+	ms->full = 0;
 }
 
 void	f_init_philo(t_data *ms, t_philo *ph)
@@ -51,6 +52,14 @@ void	f_init_philo(t_data *ms, t_philo *ph)
 	while (++i < ms->nb_philo)
 	{
 		ph[i].id = i + 1;
+		ph[i].alive = true;
+		ph[i].last_meal = 0;
+		pthread_mutex_init(&ph[i].l_fork, NULL);
+		if (i > 0)
+			ph[i].r_fork = &ph[i -1].l_fork;
+		else
+			ph[i].r_fork = NULL;
 		ph[i].info = ms;
+		ph[i].meals = ms->nb_meals;
 	}
 }
