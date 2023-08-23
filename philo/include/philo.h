@@ -6,7 +6,7 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 20:46:05 by romain            #+#    #+#             */
-/*   Updated: 2023/08/08 21:00:05 by romain           ###   ########.fr       */
+/*   Updated: 2023/08/22 20:03:06 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
+# include <stdbool.h>
 
 // COLOR-----------------------------------------------------------------------
 
@@ -31,46 +32,36 @@
 # define CYA "\x1B[36m"
 # define WHT "\x1B[37m"
 
+// MESSAGE---------------------------------------------------------------------
+# define DEBUG 1
+# define ERROR_ARG "\n🚨 : one or more arguments are not correct\n"
+# define ERROR_NB_ARG "\n🚨 : require ./philo <nb_philo> <tt_die> <tt_eat> <tt_sleep> and/or <nb_meals>\n"
+
 // STRUCTURE-------------------------------------------------------------------
 
-# define DEBUG 1
-# define ERROR_ARG "🚨 : bad arguments was passed"
-# define FORK "taken a fork"
-# define EAT "is eating"
-# define SLEEP "is sleeping"
-# define THINK "is thinking"
-# define DEAD "died"
-
-typedef struct s_meta
+typedef struct s_data
 {
-	int	nb_philos;
-	int	tt_die;
-	int	tt_eat;
-	int	tt_sleep;
-	int	nb_meals;
-}		t_meta;
-
-typedef struct s_philo
-{
-	int id;
-	pthread_t phil;
-	t_meta *ms;
-}	t_philo;
+	int nb_philo;
+	time_t tt_die;
+	time_t tt_eat;
+	time_t tt_sleep;
+	int nb_meals;
+} t_data;
 
 // PARSING---------------------------------------------------------------------
 
 void	f_putstr_fd(char *txt, int fd);
 int		f_atol(char *str);
-int		f_is_digit(char *str);
-int		f_parsing(char **av);
+bool	f_is_digit(char *str);
+bool	f_check(char **av);
+bool	f_parsing(int ac, char **av);
 
 // INIT------------------------------------------------------------------------
 
-int		f_init_meta(t_meta *ms, int ac, char **av);
-int		f_get_time(void);
+void f_init_data(int ac, char **av, t_data *ms);
 
-// ROUTINE---------------------------------------------------------------------
+// A_SUPP----------------------------------------------------------------------
 
-void *f_routine(void *data);
+void	f_print_ms(t_data *ms);
 
 #endif
