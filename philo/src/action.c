@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   action.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/07 16:32:08 by romain            #+#    #+#             */
-/*   Updated: 2023/08/23 20:35:05 by romain           ###   ########.fr       */
+/*   Created: 2023/08/23 20:47:33 by romain            #+#    #+#             */
+/*   Updated: 2023/08/28 14:28:48 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int main(int ac, char **av)
-{
-	t_data ms;
-	t_philo ph[1000];
+// bool	f_think(t_philo *ph)
+// {
+// 	f_message(THINK, ph, ph->info);
 
-	if(f_parsing(ac, av))
-	{
-		f_init_data(ac, av, &ms);
-		f_init_philo(&ms, ph);
-		f_print_ms(&ms);
-		f_progress(&ms, ph);
-	}
-	return (0);
-}
+// 	return (false);
+// }

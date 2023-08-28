@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 19:37:53 by romain            #+#    #+#             */
-/*   Updated: 2023/08/23 13:29:26 by rofontai         ###   ########.fr       */
+/*   Updated: 2023/08/28 15:02:48 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void f_init_data(int ac, char **av, t_data *ms)
 		exit (EXIT_FAILURE);
 	}
 	pthread_mutex_init(&ms->msg, NULL);
+	pthread_mutex_init(&ms->var, NULL);
+	ms->dead = 0;
 	ms->full = 0;
 }
 
@@ -56,10 +58,11 @@ void	f_init_philo(t_data *ms, t_philo *ph)
 		ph[i].last_meal = 0;
 		pthread_mutex_init(&ph[i].l_fork, NULL);
 		if (i > 0)
-			ph[i].r_fork = &ph[i -1].l_fork;
-		else
-			ph[i].r_fork = NULL;
+			ph[i].r_fork = &ph[i - 1].l_fork;
+		ph[i].meals = 0;
 		ph[i].info = ms;
-		ph[i].meals = ms->nb_meals;
 	}
+	// ph[0].r_fork = NULL;
+	if (ms->nb_philo > 1)
+		ph[0].r_fork = &ph[ms->nb_philo - 1].l_fork;
 }

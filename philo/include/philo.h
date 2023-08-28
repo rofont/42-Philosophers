@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
+/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 20:46:05 by romain            #+#    #+#             */
-/*   Updated: 2023/08/23 13:25:43 by rofontai         ###   ########.fr       */
+/*   Updated: 2023/08/28 14:52:59 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,10 @@ typedef struct s_data
 	time_t			tt_eat;
 	time_t			tt_sleep;
 	int				nb_meals;
+	int				dead;
 	int				full;
 	pthread_mutex_t	msg;
+	pthread_mutex_t	var;
 }					t_data;
 
 typedef struct s_philo
@@ -90,7 +92,6 @@ void				f_progress(t_data *ms, t_philo *ph);
 // UTILS-----------------------------------------------------------------------
 
 void				f_message(char *txt, t_philo *ph, t_data *ms);
-bool				f_monitor_man(t_philo *ph, t_data *ms);
 
 // A_SUPP----------------------------------------------------------------------
 
