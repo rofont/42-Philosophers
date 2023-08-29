@@ -6,7 +6,7 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 19:37:53 by romain            #+#    #+#             */
-/*   Updated: 2023/08/28 15:02:48 by romain           ###   ########.fr       */
+/*   Updated: 2023/08/28 16:50:40 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	f_init_philo(t_data *ms, t_philo *ph)
 		ph[i].meals = 0;
 		ph[i].info = ms;
 	}
-	// ph[0].r_fork = NULL;
+	ph[0].r_fork = NULL;
 	if (ms->nb_philo > 1)
 		ph[0].r_fork = &ph[ms->nb_philo - 1].l_fork;
 }

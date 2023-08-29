@@ -6,7 +6,7 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 16:32:08 by romain            #+#    #+#             */
-/*   Updated: 2023/08/23 20:35:05 by romain           ###   ########.fr       */
+/*   Updated: 2023/08/28 16:40:21 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int main(int ac, char **av)
 		f_init_philo(&ms, ph);
 		f_print_ms(&ms);
 		f_progress(&ms, ph);
+		f_print_ms(&ms);
 	}
 	return (0);
 }

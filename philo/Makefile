@@ -6,7 +6,7 @@
 #    By: romain <romain@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 10:04:59 by rofontai          #+#    #+#              #
-#    Updated: 2023/08/28 09:49:57 by romain           ###   ########.fr        #
+#    Updated: 2023/08/28 16:41:48 by romain           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC			= main.c \
 				a_supp.c \
 				routine.c \
 				utils.c \
+				action.c \
 
 DIR_OBJ		= ./obj
 OBJ			= $(addprefix $(DIR_OBJ)/, $(SRC:.c=.o))
@@ -85,5 +86,8 @@ leak:
 
 norminette:
 	@norminette
+
+visualizer:
+	open https://nafuka11.github.io/philosophers-visualizer/
 
 .PHONY: all clean fclean re leaks leak norminette
