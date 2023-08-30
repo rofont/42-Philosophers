@@ -6,24 +6,11 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 09:33:40 by rofontai          #+#    #+#             */
-/*   Updated: 2023/08/28 22:16:02 by romain           ###   ########.fr       */
+/*   Updated: 2023/08/29 21:07:22 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-
-bool f_check_is_full(t_philo *ph)
-{
-	pthread_mutex_lock(&ph->info->var);
-	if (ph->info->full == ph->info->nb_philo)
-	{
-		pthread_mutex_unlock(&ph->info->var);
-		return (true);
-	}
-	pthread_mutex_unlock(&ph->info->var);
-	return (false);
-}
-
 
 void	*f_routine(void *arg)
 {
@@ -32,13 +19,12 @@ void	*f_routine(void *arg)
 	ph = (t_philo *)arg;
 	if (ph->id % 2 == 0)
 		usleep(1000);
-	while (!f_check_is_full(ph))
+	while (ph->meals != ph->info->nb_meals)
 	{
-		f_eating(ph);
-		time_t sleep = ph->info->tt_sleep + get_time();
-		f_message(SLEEP, ph, ph->info);
-		while (get_time() < sleep)
-			usleep(50);
+		if (!f_eating(ph))
+			break;
+		if (!f_sleeping(ph))
+			break;
 		f_message(THINK, ph, ph->info);
 	}
 	return (arg);

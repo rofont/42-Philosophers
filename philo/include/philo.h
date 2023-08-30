@@ -6,7 +6,7 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 20:46:05 by romain            #+#    #+#             */
-/*   Updated: 2023/08/28 16:41:37 by romain           ###   ########.fr       */
+/*   Updated: 2023/08/29 20:52:44 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,10 @@ void				f_message(char *txt, t_philo *ph, t_data *ms);
 
 // ACTION----------------------------------------------------------------------
 
+bool f_check_is_full(t_philo *ph);
+bool f_check_is_dead(t_philo *ph);
 bool	f_eating(t_philo *ph);
+bool	f_sleeping(t_philo *ph);
 
 // A_SUPP----------------------------------------------------------------------
 
