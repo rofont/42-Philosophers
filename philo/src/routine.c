@@ -6,7 +6,7 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 09:33:40 by rofontai          #+#    #+#             */
-/*   Updated: 2023/08/29 21:07:22 by romain           ###   ########.fr       */
+/*   Updated: 2023/08/31 15:30:41 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	*f_routine(void *arg)
 	t_philo *ph;
 
 	ph = (t_philo *)arg;
+	ph->last_meal = ph->info->tt_die;
 	if (ph->id % 2 == 0)
 		usleep(1000);
 	while (ph->meals != ph->info->nb_meals)
@@ -25,7 +26,8 @@ void	*f_routine(void *arg)
 			break;
 		if (!f_sleeping(ph))
 			break;
-		f_message(THINK, ph, ph->info);
+		if (!f_thinking(ph))
+			break;
 	}
 	return (arg);
 }

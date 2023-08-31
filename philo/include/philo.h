@@ -6,7 +6,7 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 20:46:05 by romain            #+#    #+#             */
-/*   Updated: 2023/08/29 20:52:44 by romain           ###   ########.fr       */
+/*   Updated: 2023/08/31 15:37:42 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ void				f_progress(t_data *ms, t_philo *ph);
 
 // UTILS-----------------------------------------------------------------------
 
-void				f_message(char *txt, t_philo *ph, t_data *ms);
+int				f_message(char *txt, t_philo *ph, t_data *ms);
+bool	f_monitoring(t_philo *ph, time_t limit);
 
 // ACTION----------------------------------------------------------------------
 
@@ -99,6 +100,7 @@ bool f_check_is_full(t_philo *ph);
 bool f_check_is_dead(t_philo *ph);
 bool	f_eating(t_philo *ph);
 bool	f_sleeping(t_philo *ph);
+bool	f_thinking(t_philo *ph);
 
 // A_SUPP----------------------------------------------------------------------
 

@@ -6,7 +6,7 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 20:47:33 by romain            #+#    #+#             */
-/*   Updated: 2023/08/29 21:05:27 by romain           ###   ########.fr       */
+/*   Updated: 2023/08/31 15:31:58 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,6 @@ bool	f_eating(t_philo *ph)
 {
 	time_t eat;
 
-	if (f_check_is_full(ph))
-		return (false);
 	pthread_mutex_lock(&ph->l_fork);
 	f_message(FORK, ph, ph->info);
 	pthread_mutex_lock(ph->r_fork);
@@ -56,6 +54,7 @@ bool	f_eating(t_philo *ph)
 			pthread_mutex_lock(&ph->info->var);
 			ph->info->dead = 1;
 			pthread_mutex_unlock(&ph->info->var);
+			f_message(DIED, ph, ph->info);
 			pthread_mutex_unlock(ph->r_fork);
 			pthread_mutex_unlock(&ph->l_fork);
 			return (false);
@@ -87,6 +86,7 @@ bool	f_sleeping(t_philo *ph)
 			pthread_mutex_lock(&ph->info->var);
 			ph->info->dead = 1;
 			pthread_mutex_unlock(&ph->info->var);
+			f_message(DIED, ph, ph->info);
 			return (false);
 		}
 		usleep(50);
@@ -94,3 +94,10 @@ bool	f_sleeping(t_philo *ph)
 	return (true);
 }
 
+bool	f_thinking(t_philo *ph)
+{
+	f_message(THINK, ph, ph->info);
+	if (!f_monitoring(ph, ph->last_meal))
+		return (false);
+	return (true);
+}
