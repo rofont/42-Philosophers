@@ -6,7 +6,7 @@
 /*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 16:32:08 by romain            #+#    #+#             */
-/*   Updated: 2023/09/07 11:48:42 by rofontai         ###   ########.fr       */
+/*   Updated: 2023/09/07 14:26:39 by rofontai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int main(int ac, char **av)
 		f_init_philo(&ms, ph);
 		if (ms.nb_philo > 1)
 			f_progress(&ms, ph);
-		else
 	}
 	return (0);
 }
