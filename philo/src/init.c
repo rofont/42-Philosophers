@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 19:37:53 by romain            #+#    #+#             */
-/*   Updated: 2023/08/28 16:50:40 by romain           ###   ########.fr       */
+/*   Updated: 2023/09/07 11:48:03 by rofontai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void f_init_data(int ac, char **av, t_data *ms)
 	}
 	pthread_mutex_init(&ms->msg, NULL);
 	pthread_mutex_init(&ms->var, NULL);
+	pthread_mutex_init(&ms->key, NULL);
 	ms->dead = 0;
-	ms->full = 0;
 }
 
 void	f_init_philo(t_data *ms, t_philo *ph)
@@ -54,7 +54,6 @@ void	f_init_philo(t_data *ms, t_philo *ph)
 	while (++i < ms->nb_philo)
 	{
 		ph[i].id = i + 1;
-		ph[i].alive = true;
 		ph[i].last_meal = 0;
 		pthread_mutex_init(&ph[i].l_fork, NULL);
 		if (i > 0)

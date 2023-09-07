@@ -6,7 +6,7 @@
 #    By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 10:04:59 by rofontai          #+#    #+#              #
-#    Updated: 2023/09/06 09:21:52 by rofontai         ###   ########.fr        #
+#    Updated: 2023/09/07 11:25:26 by rofontai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,6 @@ SRC			= main.c \
 				a_supp.c \
 				routine.c \
 				utils.c \
-				action.c \
 
 DIR_OBJ		= ./obj
 OBJ			= $(addprefix $(DIR_OBJ)/, $(SRC:.c=.o))

@@ -6,7 +6,7 @@
 /*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 20:46:05 by romain            #+#    #+#             */
-/*   Updated: 2023/09/06 09:03:36 by rofontai         ###   ########.fr       */
+/*   Updated: 2023/09/07 08:48:14 by rofontai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,14 @@ typedef struct s_data
 	time_t			tt_sleep;
 	int				nb_meals;
 	int				dead;
-	int				full;
 	pthread_mutex_t	msg;
 	pthread_mutex_t	var;
+	pthread_mutex_t	key;
 }					t_data;
 
 typedef struct s_philo
 {
 	int				id;
-	bool			alive;
 	int				meals;
 	time_t			last_meal;
 	pthread_mutex_t	l_fork;
@@ -93,6 +92,8 @@ void				f_progress(t_data *ms, t_philo *ph);
 
 void				f_message(char *txt, t_philo *ph, t_data *ms);
 void				f_wait_while(time_t time);
+void				f_who_is_dead(t_philo *ph, t_data *ms);
+bool				f_check_is_dead(t_data *ms);
 
 // ACTION----------------------------------------------------------------------
 

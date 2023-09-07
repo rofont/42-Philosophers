@@ -6,29 +6,50 @@
 /*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 09:33:40 by rofontai          #+#    #+#             */
-/*   Updated: 2023/09/06 10:38:00 by rofontai         ###   ########.fr       */
+/*   Updated: 2023/09/07 11:23:43 by rofontai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
+void	f_eating(t_philo *ph)
+{
+	pthread_mutex_lock(&ph->l_fork);
+	f_message(FORK, ph, ph->info);
+	pthread_mutex_lock(ph->r_fork);
+	f_message(FORK, ph, ph->info);
+	f_message(EAT, ph, ph->info);
+	f_wait_while(ph->info->tt_eat);
+	pthread_mutex_lock(&ph->info->key);
+	ph->last_meal = get_time();
+	ph->meals++;
+	pthread_mutex_unlock(&ph->info->key);
+	pthread_mutex_unlock(ph->r_fork);
+	pthread_mutex_unlock(&ph->l_fork);
+}
 
 void	*f_routine(void *arg)
 {
 	t_philo *ph;
 
 	ph = (t_philo *)arg;
-	if (ph->id % 2 == 0)
+	if (ph->id % 2 == 1)
 	{
 		f_message(THINK, ph, ph->info);
 		f_wait_while(ph->info->tt_eat);
 	}
-	while (ph->meals != ph->info->nb_meals)
+	while (1)
 	{
 		f_eating(ph);
-		ph->meals++;
+		if (ph->meals == ph->info->nb_meals)
+			return (NULL);
 		f_message(SLEEP, ph, ph->info);
 		f_wait_while(ph->info->tt_sleep);
+		if (f_check_is_dead(ph->info))
+			return (NULL);
 		f_message(THINK, ph, ph->info);
+		if (f_check_is_dead(ph->info))
+			return (NULL);
 	}
 	return (arg);
 }
@@ -39,10 +60,13 @@ void	f_destroy(pthread_t *eater,t_philo *ph, t_data *ms)
 
 	i = -1;
 	while(++i < ms->nb_philo)
+	{
 		pthread_join(eater[i], NULL);
+		pthread_mutex_destroy(&ph[i].l_fork);
+	}
 	pthread_mutex_destroy(&ms->msg);
 	pthread_mutex_destroy(&ms->var);
-	pthread_mutex_destroy(&ph->l_fork);
+	pthread_mutex_destroy(&ms->key);
 }
 
 void	f_make_philo(pthread_t *eater, t_philo *ph, t_data *ms)
@@ -54,15 +78,15 @@ void	f_make_philo(pthread_t *eater, t_philo *ph, t_data *ms)
 	{
 		ph[i].last_meal = get_time();
 		pthread_create(&eater[i], NULL, &f_routine, &ph[i]);
-		// printf("ph =%d= time =%ld=\n", ph[i].id, ph[i].last_meal);
 	}
 }
 
 
 void	f_progress(t_data *ms, t_philo *ph)
 {
-	pthread_t eater[1000];
+	pthread_t eater[250];
 
 	f_make_philo(eater, ph, ms);
+	f_who_is_dead(ph, ms);
 	f_destroy(eater, ph, ms);
 }
