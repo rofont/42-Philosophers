@@ -6,7 +6,7 @@
 #    By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 10:04:59 by rofontai          #+#    #+#              #
-#    Updated: 2023/09/20 08:20:14 by rofontai         ###   ########.fr        #
+#    Updated: 2023/09/20 08:52:14 by rofontai         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ CFLAGS		= -g -Wall -Wextra -Werror -pthread -fsanitize=thread
 DIR_SRC		= ./src
 SRC			= main.c \
 				parsing.c \
-				init.c \
 				routine.c \
 				utils.c \
 

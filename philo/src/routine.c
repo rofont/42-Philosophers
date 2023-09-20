@@ -6,7 +6,7 @@
 /*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 09:33:40 by rofontai          #+#    #+#             */
-/*   Updated: 2023/09/20 08:20:48 by rofontai         ###   ########.fr       */
+/*   Updated: 2023/09/20 08:35:35 by rofontai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,18 @@ void	f_make_philo(pthread_t *eater, t_philo *ph, t_data *ms)
 	int	i;
 
 	i = -1;
-	while (++i < ms->nb_philo)
+	if (ms->nb_philo == 1)
 	{
-		ph[i].last_meal = get_time();
-		pthread_create(&eater[i], NULL, &f_routine, &ph[i]);
+		ph[0].last_meal = get_time();
+		pthread_create(&eater[0], NULL, &f_routine_alone, &ph[0]);
+	}
+	else
+	{
+		while (++i < ms->nb_philo)
+		{
+			ph[i].last_meal = get_time();
+			pthread_create(&eater[i], NULL, &f_routine, &ph[i]);
+		}
 	}
 }
 

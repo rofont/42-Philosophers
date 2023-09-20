@@ -6,7 +6,7 @@
 /*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 20:46:05 by romain            #+#    #+#             */
-/*   Updated: 2023/09/20 08:23:43 by rofontai         ###   ########.fr       */
+/*   Updated: 2023/09/20 08:54:46 by rofontai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define DEBUG 1
 # define ERROR_ARG "\n🚨 : one or more arguments are not correct\n"
 # define ERROR_NB_ARG "\n🚨 : require ./philo <nb_philo> <tt_die> <tt_eat> \
-						<tt_sleep> and/or <nb_meals>\n"
+<tt_sleep> and/or <nb_meals>\n"
 # define FORK "has taken a fork"
 # define EAT "is eating"
 # define SLEEP "is sleeping"
@@ -76,11 +76,13 @@ bool				f_is_digit(char *str);
 bool				f_check(char **av);
 bool				f_parsing(int ac, char **av);
 
-// INIT------------------------------------------------------------------------
+// MAIN------------------------------------------------------------------------
 
 time_t				get_time(void);
 void				f_init_data(int ac, char **av, t_data *ms);
 void				f_init_philo(t_data *ms, t_philo *ph);
+void				*f_routine_alone(void *arg);
+int					main(int ac, char **av);
 
 // ROUTINE--------------------------------------------------------------------
 
@@ -96,6 +98,5 @@ void				f_message(char *txt, t_philo *ph, t_data *ms);
 void				f_wait_while(time_t time);
 void				f_who_is_dead(t_philo *ph, t_data *ms);
 bool				f_check_is_dead(t_data *ms);
-
 
 #endif
