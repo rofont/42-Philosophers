@@ -6,7 +6,7 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 20:46:05 by romain            #+#    #+#             */
-/*   Updated: 2023/09/19 16:40:24 by romain           ###   ########.fr       */
+/*   Updated: 2023/09/19 20:55:11 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@
 // MESSAGE---------------------------------------------------------------------
 # define DEBUG 1
 # define ERROR_ARG "\n🚨 : one or more arguments are not correct\n"
-# define ERROR_NB_ARG "\n🚨 : require ./philo <nb_philo> <tt_die> <tt_eat> <tt_sleep> and/or <nb_meals>\n"
+# define ERROR_NB_ARG "\n🚨 : require ./philo <nb_philo> <tt_die> <tt_eat> \
+						<tt_sleep> and/or <nb_meals>\n"
 # define FORK "has taken a fork"
 # define EAT "is eating"
 # define SLEEP "is sleeping"
@@ -83,6 +84,7 @@ void				f_init_philo(t_data *ms, t_philo *ph);
 
 // ROUTINE--------------------------------------------------------------------
 
+void				f_eating(t_philo *ph);
 void				*f_routine(void *arg);
 void				f_destroy(pthread_t *eater, t_philo *ph, t_data *ms);
 void				f_make_philo(pthread_t *eater, t_philo *ph, t_data *ms);
@@ -94,10 +96,6 @@ void				f_message(char *txt, t_philo *ph, t_data *ms);
 void				f_wait_while(time_t time);
 void				f_who_is_dead(t_philo *ph, t_data *ms);
 bool				f_check_is_dead(t_data *ms);
-
-// ACTION----------------------------------------------------------------------
-
-void	f_eating(t_philo *ph);
 
 // A_SUPP----------------------------------------------------------------------
 

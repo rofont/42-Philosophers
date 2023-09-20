@@ -6,7 +6,7 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 10:45:26 by rofontai          #+#    #+#             */
-/*   Updated: 2023/09/19 20:50:40 by romain           ###   ########.fr       */
+/*   Updated: 2023/09/19 20:59:51 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	f_message(char *txt, t_philo *ph, t_data *ms)
 {
 	(void)ms;
-
 	pthread_mutex_lock(&ms->msg);
 	if (!f_check_is_dead(ms))
 		printf ("%ld %d %s\n", get_time(), ph->id, txt);
@@ -24,13 +23,13 @@ void	f_message(char *txt, t_philo *ph, t_data *ms)
 
 void	f_wait_while(time_t time)
 {
-	time_t start;
+	time_t	start;
 
 	start = get_time();
 	while (1)
 	{
 		if (get_time() - start >= time)
-		break ;
+			break ;
 		usleep(40);
 	}
 }

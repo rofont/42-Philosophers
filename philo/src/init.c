@@ -6,7 +6,7 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 19:37:53 by romain            #+#    #+#             */
-/*   Updated: 2023/09/19 16:40:27 by romain           ###   ########.fr       */
+/*   Updated: 2023/09/19 20:57:15 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ time_t	get_time(void)
 	(now.tv_usec / 1000 - start.tv_usec / 1000));
 }
 
-void f_init_data(int ac, char **av, t_data *ms)
+void	f_init_data(int ac, char **av, t_data *ms)
 {
 	ms->nb_philo = f_atol(av[1]);
 	ms->tt_die = f_atol(av[2]);
@@ -34,8 +34,8 @@ void f_init_data(int ac, char **av, t_data *ms)
 	ms->nb_meals = f_atol(av[5]);
 	else
 		ms->nb_meals = INT_MAX;
-	if (ms->nb_philo < 1 || ms->tt_die < 1 || ms->tt_eat < 1 ||
-		ms->tt_sleep < 1 || ms->nb_meals < 0)
+	if (ms->nb_philo < 1 || ms->tt_die < 1 || ms->tt_eat < 1
+		|| ms->tt_sleep < 1 || ms->nb_meals < 0)
 	{
 		f_putstr_fd(ERROR_ARG, STDERR_FILENO);
 		exit (EXIT_FAILURE);
@@ -48,7 +48,7 @@ void f_init_data(int ac, char **av, t_data *ms)
 
 void	f_init_philo(t_data *ms, t_philo *ph)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < ms->nb_philo)

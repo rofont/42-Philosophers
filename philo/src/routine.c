@@ -6,7 +6,7 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 09:33:40 by rofontai          #+#    #+#             */
-/*   Updated: 2023/09/19 20:52:54 by romain           ###   ########.fr       */
+/*   Updated: 2023/09/19 21:00:59 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	f_eating(t_philo *ph)
 
 void	*f_routine(void *arg)
 {
-	t_philo *ph;
+	t_philo	*ph;
 
 	ph = (t_philo *)arg;
 	if (ph->id % 2 == 1)
@@ -52,12 +52,12 @@ void	*f_routine(void *arg)
 	return (arg);
 }
 
-void	f_destroy(pthread_t *eater,t_philo *ph, t_data *ms)
+void	f_destroy(pthread_t *eater, t_philo *ph, t_data *ms)
 {
 	int	i;
 
 	i = -1;
-	while(++i < ms->nb_philo)
+	while (++i < ms->nb_philo)
 	{
 		pthread_join(eater[i], NULL);
 		pthread_mutex_destroy(&ph[i].l_fork);
@@ -78,7 +78,6 @@ void	f_make_philo(pthread_t *eater, t_philo *ph, t_data *ms)
 		pthread_create(&eater[i], NULL, &f_routine, &ph[i]);
 	}
 }
-
 
 void	f_progress(t_data *ms, t_philo *ph)
 {

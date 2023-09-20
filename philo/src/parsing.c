@@ -6,7 +6,7 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 19:14:31 by romain            #+#    #+#             */
-/*   Updated: 2023/08/22 20:07:40 by romain           ###   ########.fr       */
+/*   Updated: 2023/09/19 20:56:27 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,12 @@ bool	f_is_digit(char *str)
 	return (true);
 }
 
-
-bool f_check(char **av)
+bool	f_check(char **av)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(av[++i])
+	while (av[++i])
 	{
 		if (!f_is_digit(av[i]) || f_atol(av[i]) == -1)
 		{
@@ -68,7 +67,7 @@ bool f_check(char **av)
 	return (true);
 }
 
-bool f_parsing(int ac, char **av)
+bool	f_parsing(int ac, char **av)
 {
 	if ((ac == 5 || ac == 6) && f_check(av))
 		return (true);
