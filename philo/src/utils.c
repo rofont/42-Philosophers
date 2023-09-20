@@ -6,7 +6,7 @@
 /*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 10:45:26 by rofontai          #+#    #+#             */
-/*   Updated: 2023/09/20 08:19:46 by rofontai         ###   ########.fr       */
+/*   Updated: 2023/09/20 09:50:42 by rofontai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ void	f_who_is_dead(t_philo *ph, t_data *ms)
 		i = 0;
 		while (i < ms->nb_philo)
 		{
-			pthread_mutex_lock(&ph->info->var);
-			if (get_time() - ph[i].last_meal >= ms->tt_die)
+			if (f_check_is_full(ph, ms, i))
+				return ;
+			else if (get_time() - ph[i].last_meal >= ms->tt_die)
 			{
 				pthread_mutex_unlock(&ph->info->var);
 				pthread_mutex_lock(&ms->key);
@@ -71,5 +72,16 @@ bool	f_check_is_dead(t_data *ms)
 		return (true);
 	}
 	pthread_mutex_unlock(&ms->key);
+	return (false);
+}
+
+bool	f_check_is_full(t_philo *ph, t_data *ms, int i)
+{
+	pthread_mutex_lock(&ph->info->var);
+	if (ph[i].meals == ms->nb_meals)
+	{
+		pthread_mutex_unlock(&ph->info->var);
+		return (true);
+	}
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 16:32:08 by romain            #+#    #+#             */
-/*   Updated: 2023/09/20 08:39:05 by rofontai         ###   ########.fr       */
+/*   Updated: 2023/09/20 09:38:51 by rofontai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	f_init_philo(t_data *ms, t_philo *ph)
 	while (++i < ms->nb_philo)
 	{
 		ph[i].id = i + 1;
+		ph[i].full = 0;
 		ph[i].last_meal = 0;
 		pthread_mutex_init(&ph[i].l_fork, NULL);
 		if (i > 0)
