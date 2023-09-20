@@ -6,7 +6,7 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 10:45:26 by rofontai          #+#    #+#             */
-/*   Updated: 2023/09/19 16:41:30 by romain           ###   ########.fr       */
+/*   Updated: 2023/09/19 20:50:40 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,22 +44,18 @@ void	f_who_is_dead(t_philo *ph, t_data *ms)
 		i = 0;
 		while (i < ms->nb_philo)
 		{
-			pthread_mutex_lock(&ms->key);
 			if (ph[i].meals == ms->nb_meals)
-			{
-				pthread_mutex_unlock(&ms->key);
 				return ;
-			}
 			else if (get_time() - ph[i].last_meal >= ms->tt_die)
 			{
-				pthread_mutex_lock(&ms->msg);
+				pthread_mutex_lock(&ms->key);
 				ms->dead = 1;
+				pthread_mutex_unlock(&ms->key);
+				pthread_mutex_lock(&ms->msg);
 				printf("%ld %d died\n", get_time(), ph[i].id);
 				pthread_mutex_unlock(&ms->msg);
-				pthread_mutex_unlock(&ms->key);
 				return ;
 			}
-			pthread_mutex_unlock(&ms->key);
 			i++;
 		}
 		usleep(40);

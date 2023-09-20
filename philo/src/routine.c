@@ -6,7 +6,7 @@
 /*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 09:33:40 by rofontai          #+#    #+#             */
-/*   Updated: 2023/09/19 16:42:27 by romain           ###   ########.fr       */
+/*   Updated: 2023/09/19 20:52:54 by romain           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@ void	f_eating(t_philo *ph)
 	f_message(FORK, ph, ph->info);
 	f_message(EAT, ph, ph->info);
 	f_wait_while(ph->info->tt_eat);
-	pthread_mutex_lock(&ph->info->key);
 	ph->last_meal = get_time();
 	ph->meals++;
-	pthread_mutex_unlock(&ph->info->key);
 	pthread_mutex_unlock(ph->r_fork);
 	pthread_mutex_unlock(&ph->l_fork);
 }
@@ -56,7 +54,7 @@ void	*f_routine(void *arg)
 
 void	f_destroy(pthread_t *eater,t_philo *ph, t_data *ms)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while(++i < ms->nb_philo)
@@ -71,7 +69,7 @@ void	f_destroy(pthread_t *eater,t_philo *ph, t_data *ms)
 
 void	f_make_philo(pthread_t *eater, t_philo *ph, t_data *ms)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < ms->nb_philo)
@@ -84,7 +82,7 @@ void	f_make_philo(pthread_t *eater, t_philo *ph, t_data *ms)
 
 void	f_progress(t_data *ms, t_philo *ph)
 {
-	pthread_t eater[250];
+	pthread_t	eater[250];
 
 	f_make_philo(eater, ph, ms);
 	f_who_is_dead(ph, ms);
