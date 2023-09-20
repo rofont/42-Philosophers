@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 19:37:53 by romain            #+#    #+#             */
-/*   Updated: 2023/09/19 20:57:15 by romain           ###   ########.fr       */
+/*   Updated: 2023/09/20 08:04:07 by rofontai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	f_init_data(int ac, char **av, t_data *ms)
 	ms->tt_eat = f_atol(av[3]);
 	ms->tt_sleep = f_atol(av[4]);
 	if (ac == 6)
-	ms->nb_meals = f_atol(av[5]);
+		ms->nb_meals = f_atol(av[5]);
 	else
 		ms->nb_meals = INT_MAX;
 	if (ms->nb_philo < 1 || ms->tt_die < 1 || ms->tt_eat < 1

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 09:33:40 by rofontai          #+#    #+#             */
-/*   Updated: 2023/09/19 21:00:59 by romain           ###   ########.fr       */
+/*   Updated: 2023/09/20 08:20:48 by rofontai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ void	f_eating(t_philo *ph)
 	pthread_mutex_lock(ph->r_fork);
 	f_message(FORK, ph, ph->info);
 	f_message(EAT, ph, ph->info);
-	f_wait_while(ph->info->tt_eat);
+	pthread_mutex_lock(&ph->info->var);
 	ph->last_meal = get_time();
-	ph->meals++;
+	pthread_mutex_unlock(&ph->info->var);
+	f_wait_while(ph->info->tt_eat);
 	pthread_mutex_unlock(ph->r_fork);
 	pthread_mutex_unlock(&ph->l_fork);
 }
@@ -39,7 +40,7 @@ void	*f_routine(void *arg)
 	while (1)
 	{
 		f_eating(ph);
-		if (ph->meals == ph->info->nb_meals)
+		if (++ph->meals == ph->info->nb_meals)
 			return (NULL);
 		f_message(SLEEP, ph, ph->info);
 		f_wait_while(ph->info->tt_sleep);

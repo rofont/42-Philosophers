@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 10:45:26 by rofontai          #+#    #+#             */
-/*   Updated: 2023/09/19 20:59:51 by romain           ###   ########.fr       */
+/*   Updated: 2023/09/20 08:19:46 by rofontai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	f_who_is_dead(t_philo *ph, t_data *ms)
 		i = 0;
 		while (i < ms->nb_philo)
 		{
-			if (ph[i].meals == ms->nb_meals)
-				return ;
-			else if (get_time() - ph[i].last_meal >= ms->tt_die)
+			pthread_mutex_lock(&ph->info->var);
+			if (get_time() - ph[i].last_meal >= ms->tt_die)
 			{
+				pthread_mutex_unlock(&ph->info->var);
 				pthread_mutex_lock(&ms->key);
 				ms->dead = 1;
 				pthread_mutex_unlock(&ms->key);
@@ -55,6 +55,7 @@ void	f_who_is_dead(t_philo *ph, t_data *ms)
 				pthread_mutex_unlock(&ms->msg);
 				return ;
 			}
+			pthread_mutex_unlock(&ph->info->var);
 			i++;
 		}
 		usleep(40);

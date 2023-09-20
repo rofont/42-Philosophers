@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: romain <romain@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rofontai <rofontai@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/20 20:46:05 by romain            #+#    #+#             */
-/*   Updated: 2023/09/19 20:55:11 by romain           ###   ########.fr       */
+/*   Updated: 2023/09/20 08:23:43 by rofontai         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,5 @@ void				f_wait_while(time_t time);
 void				f_who_is_dead(t_philo *ph, t_data *ms);
 bool				f_check_is_dead(t_data *ms);
 
-// A_SUPP----------------------------------------------------------------------
-
-void				f_print_ms(t_data *ms);
 
 #endif
